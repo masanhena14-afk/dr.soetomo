@@ -1,0 +1,549 @@
+<!DOCTYPE html>
+<html lang="id" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dr. Soetomo - Sang Penggerak Kebangkitan Nasional</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Google Fonts: Playfair Display & Inter -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,600;0,700;0,800;1,400&display=swap" rel="stylesheet">
+    <!-- FontAwesome CDN for Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        maroon: {
+                            800: '#58111A',
+                            900: '#3D0A11',
+                            950: '#250409',
+                        },
+                        gold: {
+                            300: '#FCE082',
+                            400: '#F7D050',
+                            500: '#D4AF37',
+                            600: '#AA820A',
+                        },
+                        charcoal: '#121316',
+                        cream: '#FDFBF7',
+                    },
+                    fontFamily: {
+                        serif: ['Playfair Display', 'serif'],
+                        sans: ['Inter', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        /* CSS Custom Styles & Animations */
+        body {
+            background-color: #121316;
+            color: #FDFBF7;
+            font-family: 'Inter', sans-serif;
+        }
+
+        .font-playfair {
+            font-family: 'Playfair Display', serif;
+        }
+
+        /* Glassmorphism Effect */
+        .glass-panel {
+            background: rgba(37, 4, 9, 0.6);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid rgba(212, 175, 55, 0.2);
+        }
+
+        .glass-card {
+            background: rgba(255, 255, 255, 0.03);
+            backdrop-filter: blur(8px);
+            border: 1px solid rgba(212, 175, 55, 0.15);
+        }
+
+        /* Gold Gradient Text */
+        .text-gold-gradient {
+            background: linear-gradient(135deg, #FFF0B3 0%, #D4AF37 50%, #AA820A 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #121316;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #58111A;
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #D4AF37;
+        }
+
+        /* Scroll Animation Target */
+        .fade-in-element {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+        }
+        .fade-in-element.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Timeline Connector */
+        .timeline-line::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            bottom: 0;
+            left: 50%;
+            width: 2px;
+            background: linear-gradient(to bottom, #D4AF37, #58111A, #D4AF37);
+            transform: translateX(-50%);
+        }
+
+        @media (max-width: 768px) {
+            .timeline-line::before {
+                left: 20px;
+            }
+        }
+    </style>
+</head>
+<body class="overflow-x-hidden selection:bg-gold-500 selection:text-maroon-950">
+
+    <!-- NAVBAR -->
+    <nav class="fixed top-0 left-0 right-0 z-50 glass-panel border-b border-gold-500/20 transition-all duration-300" id="navbar">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-between h-20">
+                <!-- Logo / Brand -->
+                <a href="#" class="flex items-center space-x-3 group">
+                    <div class="w-10 h-10 rounded-full border-2 border-gold-500 flex items-center justify-center bg-maroon-900 group-hover:bg-gold-500 transition-colors duration-300">
+                        <i class="fa-solid fa-feather-pointed text-gold-400 group-hover:text-maroon-950 transition-colors"></i>
+                    </div>
+                    <span class="font-serif text-xl font-bold tracking-wider text-gold-gradient">DR. SOETOMO</span>
+                </a>
+
+                <!-- Desktop Navigation Links -->
+                <div class="hidden md:flex items-center space-x-8 text-sm font-medium">
+                    <a href="#hero" class="text-cream hover:text-gold-400 transition-colors">Beranda</a>
+                    <a href="#biografi" class="text-cream hover:text-gold-400 transition-colors">Biografi</a>
+                    <a href="#perjuangan" class="text-cream hover:text-gold-400 transition-colors">Perjuangan</a>
+                    <a href="#potret" class="text-cream hover:text-gold-400 transition-colors">Galeri Potret</a>
+                    <a href="#warisan" class="text-cream hover:text-gold-400 transition-colors">Jasa & Warisan</a>
+                </div>
+
+                <!-- CTA Mini -->
+                <div class="hidden md:block">
+                    <a href="#biografi" class="px-5 py-2.5 rounded-full border border-gold-500/50 text-gold-400 hover:bg-gold-500 hover:text-maroon-950 font-semibold text-xs tracking-wider uppercase transition-all duration-300 shadow-lg shadow-gold-500/10">
+                        Mulai Menjelajah
+                    </a>
+                </div>
+
+                <!-- Mobile Menu Toggle Button -->
+                <div class="md:hidden flex items-center">
+                    <button id="mobile-menu-btn" class="text-cream hover:text-gold-400 focus:outline-none p-2" aria-label="Toggle Menu">
+                        <i class="fa-solid fa-bars text-2xl"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Mobile Menu Dropdown -->
+        <div id="mobile-menu" class="hidden md:hidden bg-maroon-950 border-b border-gold-500/30 px-4 pt-2 pb-6 space-y-3">
+            <a href="#hero" class="mobile-link block px-3 py-2 rounded-md text-base font-medium text-cream hover:bg-maroon-800 hover:text-gold-400">Beranda</a>
+            <a href="#biografi" class="mobile-link block px-3 py-2 rounded-md text-base font-medium text-cream hover:bg-maroon-800 hover:text-gold-400">Biografi</a>
+            <a href="#perjuangan" class="mobile-link block px-3 py-2 rounded-md text-base font-medium text-cream hover:bg-maroon-800 hover:text-gold-400">Perjuangan</a>
+            <a href="#potret" class="mobile-link block px-3 py-2 rounded-md text-base font-medium text-cream hover:bg-maroon-800 hover:text-gold-400">Galeri Potret</a>
+            <a href="#warisan" class="mobile-link block px-3 py-2 rounded-md text-base font-medium text-cream hover:bg-maroon-800 hover:text-gold-400">Jasa & Warisan</a>
+        </div>
+    </nav>
+
+    <!-- SECTION 1: HERO SECTION -->
+    <section id="hero" class="relative min-h-screen flex items-center justify-center pt-24 pb-16 px-4 overflow-hidden bg-gradient-to-b from-maroon-950 via-charcoal to-charcoal">
+        <!-- Decorative Ambient Glows -->
+        <div class="absolute top-1/4 left-1/2 -translate-x-1/2 -translate-y-1/2 w-96 h-96 bg-maroon-800/30 rounded-full blur-3xl pointer-events-none"></div>
+        <div class="absolute bottom-10 right-10 w-72 h-72 bg-gold-500/10 rounded-full blur-3xl pointer-events-none"></div>
+
+        <div class="max-w-6xl mx-auto text-center relative z-10 fade-in-element">
+            <!-- Badge Subtitle Header -->
+            <div class="inline-flex items-center space-x-2 px-4 py-1.5 rounded-full bg-maroon-900/80 border border-gold-500/40 mb-6">
+                <i class="fa-solid fa-star text-gold-400 text-xs"></i>
+                <span class="text-xs font-semibold uppercase tracking-widest text-gold-300">Pahlawan Nasional Indonesia</span>
+                <i class="fa-solid fa-star text-gold-400 text-xs"></i>
+            </div>
+
+            <!-- Main Heading -->
+            <h1 class="font-serif text-4xl sm:text-6xl md:text-7xl font-extrabold tracking-tight text-cream mb-6 leading-tight">
+                Dr. Soetomo: <br/>
+                <span class="text-gold-gradient italic">Sang Penggerak Kebangkitan Nasional</span>
+            </h1>
+
+            <!-- Subtitle Narrative -->
+            <p class="max-w-3xl mx-auto text-base sm:text-lg md:text-xl text-gray-300 font-light leading-relaxed mb-10">
+                Mengenal sosok dokter rakyat, pendiri Boedi Oetomo, dan pelopor pergerakan kemerdekaan Indonesia yang mengabdikan seluruh hidupnya demi kemanusiaan dan kemerdekaan bangsa.
+            </p>
+
+            <!-- Call to Action Buttons -->
+            <div class="flex flex-col sm:flex-row items-center justify-center gap-4 mb-14">
+                <a href="#biografi" class="w-full sm:w-auto px-8 py-4 rounded-full bg-gradient-to-r from-gold-500 to-gold-600 hover:from-gold-400 hover:to-gold-500 text-maroon-950 font-bold text-sm tracking-wider uppercase transition-all duration-300 transform hover:-translate-y-1 shadow-xl shadow-gold-500/20 flex items-center justify-center space-x-2">
+                    <span>Jelajahi Sejarah</span>
+                    <i class="fa-solid fa-arrow-down text-xs"></i>
+                </a>
+                <a href="#perjuangan" class="w-full sm:w-auto px-8 py-4 rounded-full border border-gold-500/40 hover:border-gold-400 text-cream hover:text-gold-400 font-semibold text-sm tracking-wider uppercase transition-all duration-300 glass-card flex items-center justify-center space-x-2">
+                    <i class="fa-solid fa-timeline text-gold-400 text-xs"></i>
+                    <span>Jejak Perjuangan</span>
+                </a>
+            </div>
+
+            <!-- Main Hero Image Frame -->
+            <div class="relative max-w-sm sm:max-w-md mx-auto group">
+                <div class="absolute -inset-1.5 bg-gradient-to-r from-gold-500 via-maroon-800 to-gold-600 rounded-2xl blur opacity-75 group-hover:opacity-100 transition duration-1000 group-hover:duration-200"></div>
+                <div class="relative rounded-2xl overflow-hidden border-2 border-gold-500/60 bg-maroon-950 p-2 shadow-2xl">
+                    <img src="dr-soetomo.PNG" 
+                         alt="Dr. Soetomo" 
+                         onerror="this.onerror=null; this.src='https://upload.wikimedia.org/wikipedia/commons/thumb/b/b3/Dr_Soetomo.jpg/800px-Dr_Soetomo.jpg';"
+                         class="w-full h-auto object-cover rounded-xl transition-transform duration-700 group-hover:scale-105">
+                    <div class="absolute bottom-0 inset-x-0 bg-gradient-to-t from-maroon-950 via-maroon-950/80 to-transparent p-4 text-center">
+                        <p class="font-serif text-sm font-semibold text-gold-300 tracking-wide">Dr. Soetomo (1888 - 1938)</p>
+                        <p class="text-xs text-gray-400 italic">Pendiri Organisasi Boedi Oetomo</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- SECTION 2: PROFIL & BIOGRAFI SINGKAT -->
+    <section id="biografi" class="py-24 px-4 bg-charcoal relative border-t border-gold-500/10">
+        <div class="max-w-6xl mx-auto">
+            <div class="text-center mb-16 fade-in-element">
+                <h2 class="font-serif text-3xl sm:text-5xl font-bold text-gold-gradient mb-4">Profil & Biografi Singkat</h2>
+                <div class="w-24 h-1 bg-gradient-to-r from-transparent via-gold-500 to-transparent mx-auto mb-4"></div>
+                <p class="text-gray-400 max-w-2xl mx-auto text-sm sm:text-base">
+                    Mengenal latar belakang dan ringkasan kehidupan Dr. Soetomo yang menginspirasi perjuangan pergerakan nasional.
+                </p>
+            </div>
+
+            <!-- Profile Cards Grid -->
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 fade-in-element">
+                <!-- Card 1: Nama Asli -->
+                <div class="glass-card p-6 rounded-xl border border-gold-500/20 hover:border-gold-500/60 transition-all duration-300 transform hover:-translate-y-2 group">
+                    <div class="w-12 h-12 rounded-lg bg-maroon-900 border border-gold-500/30 flex items-center justify-center mb-4 group-hover:bg-gold-500 transition-colors">
+                        <i class="fa-solid fa-id-card text-gold-400 group-hover:text-maroon-950 text-xl transition-colors"></i>
+                    </div>
+                    <span class="text-xs uppercase tracking-widest text-gold-400 font-semibold">Nama Asli</span>
+                    <h3 class="font-serif text-2xl font-bold text-cream mt-1 mb-2">Soebroto</h3>
+                    <p class="text-xs text-gray-400 leading-relaxed">
+                        Lahir dengan nama Soebroto, kemudian berganti nama menjadi Soetomo ketika masuk sekolah Belanda.
+                    </p>
+                </div>
+
+                <!-- Card 2: Lahir -->
+                <div class="glass-card p-6 rounded-xl border border-gold-500/20 hover:border-gold-500/60 transition-all duration-300 transform hover:-translate-y-2 group">
+                    <div class="w-12 h-12 rounded-lg bg-maroon-900 border border-gold-500/30 flex items-center justify-center mb-4 group-hover:bg-gold-500 transition-colors">
+                        <i class="fa-solid fa-cake-candles text-gold-400 group-hover:text-maroon-950 text-xl transition-colors"></i>
+                    </div>
+                    <span class="text-xs uppercase tracking-widest text-gold-400 font-semibold">Kelahiran</span>
+                    <h3 class="font-serif text-xl font-bold text-cream mt-1 mb-2">30 Juli 1888</h3>
+                    <p class="text-xs text-gray-400 leading-relaxed">
+                        Lahir di Ngepeh, Loceret, Nganjuk, Jawa Timur. Tumbuh dalam keluarga priyayi yang taat norma sosial.
+                    </p>
+                </div>
+
+                <!-- Card 3: Wafat -->
+                <div class="glass-card p-6 rounded-xl border border-gold-500/20 hover:border-gold-500/60 transition-all duration-300 transform hover:-translate-y-2 group">
+                    <div class="w-12 h-12 rounded-lg bg-maroon-900 border border-gold-500/30 flex items-center justify-center mb-4 group-hover:bg-gold-500 transition-colors">
+                        <i class="fa-solid fa-monument text-gold-400 group-hover:text-maroon-950 text-xl transition-colors"></i>
+                    </div>
+                    <span class="text-xs uppercase tracking-widest text-gold-400 font-semibold">Wafat</span>
+                    <h3 class="font-serif text-xl font-bold text-cream mt-1 mb-2">29 Mei 1938</h3>
+                    <p class="text-xs text-gray-400 leading-relaxed">
+                        Wafat di Surabaya pada usia 49 tahun dan dimakamkan di Kompleks Gedung Nasional Indonesia (GNI) Surabaya.
+                    </p>
+                </div>
+
+                <!-- Card 4: Pendidikan -->
+                <div class="glass-card p-6 rounded-xl border border-gold-500/20 hover:border-gold-500/60 transition-all duration-300 transform hover:-translate-y-2 group">
+                    <div class="w-12 h-12 rounded-lg bg-maroon-900 border border-gold-500/30 flex items-center justify-center mb-4 group-hover:bg-gold-500 transition-colors">
+                        <i class="fa-solid fa-user-graduate text-gold-400 group-hover:text-maroon-950 text-xl transition-colors"></i>
+                    </div>
+                    <span class="text-xs uppercase tracking-widest text-gold-400 font-semibold">Pendidikan</span>
+                    <h3 class="font-serif text-lg font-bold text-cream mt-1 mb-2">STOVIA & Univ. Amsterdam</h3>
+                    <p class="text-xs text-gray-400 leading-relaxed">
+                        Lulusan kedokteran STOVIA Batavia dan memperdalam spesialisasi penyakit kulit di Univ. Amsterdam, Belanda.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- SECTION 3: BAGIAN PERJUANGAN DR. SOETOMO (TIMELINE INTERAKTIF) -->
+    <section id="perjuangan" class="py-24 px-4 bg-gradient-to-b from-charcoal via-maroon-950/40 to-charcoal relative">
+        <div class="max-w-5xl mx-auto">
+            <div class="text-center mb-16 fade-in-element">
+                <h2 class="font-serif text-3xl sm:text-5xl font-bold text-gold-gradient mb-4">Jejak Perjuangan</h2>
+                <div class="w-24 h-1 bg-gradient-to-r from-transparent via-gold-500 to-transparent mx-auto mb-4"></div>
+                <p class="text-gray-400 max-w-xl mx-auto text-sm sm:text-base">
+                    Perjalanan historis penting Dr. Soetomo dalam mengorganisir pergerakan kebangkitan nasional Indonesia.
+                </p>
+            </div>
+
+            <!-- Timeline Container -->
+            <div class="relative timeline-line space-y-12 fade-in-element">
+                <!-- Timeline Item 1 -->
+                <div class="relative flex flex-col md:flex-row items-center md:justify-between group">
+                    <div class="flex items-center w-full md:w-1/2 md:pr-10 mb-4 md:mb-0 justify-start md:justify-end">
+                        <div class="glass-card p-6 rounded-xl border border-gold-500/30 w-full hover:border-gold-500 transition-all duration-300 hover:shadow-xl hover:shadow-gold-500/10">
+                            <span class="px-3 py-1 rounded-full bg-maroon-900 border border-gold-500/40 text-gold-400 text-xs font-bold inline-block mb-3">1908</span>
+                            <h3 class="font-serif text-xl font-bold text-cream mb-2">Berdirinya Boedi Oetomo</h3>
+                            <p class="text-sm text-gray-300 leading-relaxed">
+                                Terinspirasi oleh dr. Wahidin Sudirohusodo, Soetomo bersama pelajar STOVIA mendirikan <strong>Boedi Oetomo</strong> pada 20 Mei 1908 sebagai organisasi pergerakan modern pertama di Indonesia yang memicu <em>Hari Kebangkitan Nasional</em>.
+                            </p>
+                        </div>
+                    </div>
+                    <!-- Node Point -->
+                    <div class="absolute left-5 md:left-1/2 -translate-x-1/2 w-8 h-8 rounded-full border-2 border-gold-500 bg-maroon-950 flex items-center justify-center z-10 group-hover:scale-125 group-hover:bg-gold-500 transition-all duration-300">
+                        <div class="w-2.5 h-2.5 rounded-full bg-gold-400 group-hover:bg-maroon-950"></div>
+                    </div>
+                    <div class="w-full md:w-1/2 md:pl-10 hidden md:block"></div>
+                </div>
+
+                <!-- Timeline Item 2 -->
+                <div class="relative flex flex-col md:flex-row items-center md:justify-between group">
+                    <div class="w-full md:w-1/2 md:pr-10 hidden md:block"></div>
+                    <!-- Node Point -->
+                    <div class="absolute left-5 md:left-1/2 -translate-x-1/2 w-8 h-8 rounded-full border-2 border-gold-500 bg-maroon-950 flex items-center justify-center z-10 group-hover:scale-125 group-hover:bg-gold-500 transition-all duration-300">
+                        <div class="w-2.5 h-2.5 rounded-full bg-gold-400 group-hover:bg-maroon-950"></div>
+                    </div>
+                    <div class="flex items-center w-full md:w-1/2 md:pl-10 pl-10">
+                        <div class="glass-card p-6 rounded-xl border border-gold-500/30 w-full hover:border-gold-500 transition-all duration-300 hover:shadow-xl hover:shadow-gold-500/10">
+                            <span class="px-3 py-1 rounded-full bg-maroon-900 border border-gold-500/40 text-gold-400 text-xs font-bold inline-block mb-3">1911 - 1919</span>
+                            <h3 class="font-serif text-xl font-bold text-cream mb-2">Pengabdian Dokter Rakyat</h3>
+                            <p class="text-sm text-gray-300 leading-relaxed">
+                                Menjadi dokter pemerintah di berbagai daerah terpencil (Semarang, Tuban, Lubuk Pakam, Malang). Beliau mengobati rakyat miskin tanpa memungut biaya, sehingga dikenal luas sebagai <em>Dokter Kerakyatan</em>.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Timeline Item 3 -->
+                <div class="relative flex flex-col md:flex-row items-center md:justify-between group">
+                    <div class="flex items-center w-full md:w-1/2 md:pr-10 mb-4 md:mb-0 justify-start md:justify-end">
+                        <div class="glass-card p-6 rounded-xl border border-gold-500/30 w-full hover:border-gold-500 transition-all duration-300 hover:shadow-xl hover:shadow-gold-500/10">
+                            <span class="px-3 py-1 rounded-full bg-maroon-900 border border-gold-500/40 text-gold-400 text-xs font-bold inline-block mb-3">1924</span>
+                            <h3 class="font-serif text-xl font-bold text-cream mb-2">Indonesische Studieclub (IS)</h3>
+                            <p class="text-sm text-gray-300 leading-relaxed">
+                                Mendirikan perkumpulan kaum terpelajar di Surabaya untuk membangkitkan kesadaran sosial-politik masyarakat, yang kemudian bertransformasi menjadi <strong>Partai Persatuan Bangsa Indonesia (PBI)</strong>.
+                            </p>
+                        </div>
+                    </div>
+                    <!-- Node Point -->
+                    <div class="absolute left-5 md:left-1/2 -translate-x-1/2 w-8 h-8 rounded-full border-2 border-gold-500 bg-maroon-950 flex items-center justify-center z-10 group-hover:scale-125 group-hover:bg-gold-500 transition-all duration-300">
+                        <div class="w-2.5 h-2.5 rounded-full bg-gold-400 group-hover:bg-maroon-950"></div>
+                    </div>
+                    <div class="w-full md:w-1/2 md:pl-10 hidden md:block"></div>
+                </div>
+
+                <!-- Timeline Item 4 -->
+                <div class="relative flex flex-col md:flex-row items-center md:justify-between group">
+                    <div class="w-full md:w-1/2 md:pr-10 hidden md:block"></div>
+                    <!-- Node Point -->
+                    <div class="absolute left-5 md:left-1/2 -translate-x-1/2 w-8 h-8 rounded-full border-2 border-gold-500 bg-maroon-950 flex items-center justify-center z-10 group-hover:scale-125 group-hover:bg-gold-500 transition-all duration-300">
+                        <div class="w-2.5 h-2.5 rounded-full bg-gold-400 group-hover:bg-maroon-950"></div>
+                    </div>
+                    <div class="flex items-center w-full md:w-1/2 md:pl-10 pl-10">
+                        <div class="glass-card p-6 rounded-xl border border-gold-500/30 w-full hover:border-gold-500 transition-all duration-300 hover:shadow-xl hover:shadow-gold-500/10">
+                            <span class="px-3 py-1 rounded-full bg-maroon-900 border border-gold-500/40 text-gold-400 text-xs font-bold inline-block mb-3">1935</span>
+                            <h3 class="font-serif text-xl font-bold text-cream mb-2">Partai Indonesia Raya (Parindra)</h3>
+                            <p class="text-sm text-gray-300 leading-relaxed">
+                                Melebur PBI dan Boedi Oetomo menjadi <strong>Parindra</strong> untuk memperjuangkan misi besar meraih <em>"Indonesia Mulia"</em> lewat pemberdayaan ekonomi rakyat (koperasi dan bank nasional).
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- SECTION 5: FOTO DR. SOETOMO DI TENGAH HALAMAN (CONTAINER KHUSUS) -->
+    <section id="potret" class="py-20 px-4 bg-maroon-950 border-y border-gold-500/20 relative">
+        <div class="max-w-4xl mx-auto text-center fade-in-element">
+            <h2 class="font-serif text-2xl sm:text-4xl font-bold text-gold-gradient mb-3">Potret Penghormatan</h2>
+            <p class="text-gray-300 text-sm sm:text-base max-w-xl mx-auto mb-10">
+                Dokumentasi mengenang ketokohan Dr. Soetomo dalam memimpin pergerakan rakyat Indonesia.
+            </p>
+
+            <!-- Center Responsive Image Container -->
+            <div class="relative inline-block max-w-sm sm:max-w-md w-full mx-auto">
+                <!-- Frame Decoration Ring -->
+                <div class="absolute -inset-2 rounded-2xl bg-gradient-to-r from-gold-500 via-gold-300 to-gold-600 opacity-60 blur-md"></div>
+                <div class="relative bg-charcoal p-3 rounded-2xl border-2 border-gold-500 shadow-2xl">
+                    <img src="dr-soetomo.PNG" 
+                         alt="Dr. Soetomo" 
+                         onerror="this.onerror=null; this.src='https://upload.wikimedia.org/wikipedia/commons/thumb/b/b3/Dr_Soetomo.jpg/800px-Dr_Soetomo.jpg';"
+                         class="w-full h-auto object-cover rounded-xl shadow-inner border border-gold-500/30">
+                    <div class="mt-4 pb-2">
+                        <span class="text-xs uppercase tracking-widest text-gold-400 font-semibold block mb-1">Monumen Digital</span>
+                        <p class="font-serif text-lg font-bold text-cream">Dr. Soetomo (1888 - 1938)</p>
+                        <p class="text-xs text-gray-400 italic mt-1">"Pengabdi Rakyat & Pelopor Kebangkitan Nasional"</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- SECTION 4: BAGIAN JASA & WARISAN UTAMA -->
+    <section id="warisan" class="py-24 px-4 bg-charcoal relative">
+        <div class="max-w-6xl mx-auto">
+            <div class="text-center mb-16 fade-in-element">
+                <h2 class="font-serif text-3xl sm:text-5xl font-bold text-gold-gradient mb-4">Jasa & Warisan Utama</h2>
+                <div class="w-24 h-1 bg-gradient-to-r from-transparent via-gold-500 to-transparent mx-auto mb-4"></div>
+                <p class="text-gray-400 max-w-2xl mx-auto text-sm sm:text-base">
+                    Kontribusi nyata Dr. Soetomo yang mewarnai sejarah panjang perjuangan kebangsaan dan kemanusiaan di Indonesia.
+                </p>
+            </div>
+
+            <!-- Grid Cards with Icons -->
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8 fade-in-element">
+                <!-- Card 1 -->
+                <div class="glass-card p-8 rounded-2xl border border-gold-500/20 hover:border-gold-500 transition-all duration-300 hover:scale-[1.02] group">
+                    <div class="flex items-start space-x-5">
+                        <div class="p-4 rounded-xl bg-maroon-900 border border-gold-500/40 text-gold-400 group-hover:bg-gold-500 group-hover:text-maroon-950 transition-colors shrink-0">
+                            <i class="fa-solid fa-flag text-2xl"></i>
+                        </div>
+                        <div>
+                            <h3 class="font-serif text-xl font-bold text-cream mb-2 group-hover:text-gold-300 transition-colors">Bapak Kebangkitan Nasional</h3>
+                            <p class="text-sm text-gray-300 leading-relaxed">
+                                Membuka gerbang kesadaran berorganisasi dan nasionalisme modern di tanah air melalui pendirian Boedi Oetomo yang menginspirasi lahirnya organisasi pergerakan modern lainnya.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Card 2 -->
+                <div class="glass-card p-8 rounded-2xl border border-gold-500/20 hover:border-gold-500 transition-all duration-300 hover:scale-[1.02] group">
+                    <div class="flex items-start space-x-5">
+                        <div class="p-4 rounded-xl bg-maroon-900 border border-gold-500/40 text-gold-400 group-hover:bg-gold-500 group-hover:text-maroon-950 transition-colors shrink-0">
+                            <i class="fa-solid fa-hand-holding-dollar text-2xl"></i>
+                        </div>
+                        <div>
+                            <h3 class="font-serif text-xl font-bold text-cream mb-2 group-hover:text-gold-300 transition-colors">Pelopor Pemberdayaan Ekonomi</h3>
+                            <p class="text-sm text-gray-300 leading-relaxed">
+                                Menggagas berdirinya koperasi, Rukun Tani, dan Bank Nasional Indonesia untuk menyelamatkan petani serta rakyat pribumi dari keterpurukan ekonomi dan penindasan lintah darat.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Card 3 -->
+                <div class="glass-card p-8 rounded-2xl border border-gold-500/20 hover:border-gold-500 transition-all duration-300 hover:scale-[1.02] group">
+                    <div class="flex items-start space-x-5">
+                        <div class="p-4 rounded-xl bg-maroon-900 border border-gold-500/40 text-gold-400 group-hover:bg-gold-500 group-hover:text-maroon-950 transition-colors shrink-0">
+                            <i class="fa-solid fa-user-doctor text-2xl"></i>
+                        </div>
+                        <div>
+                            <h3 class="font-serif text-xl font-bold text-cream mb-2 group-hover:text-gold-300 transition-colors">Kedokteran Humanis</h3>
+                            <p class="text-sm text-gray-300 leading-relaxed">
+                                Menjadi simbol dokter yang mengutamakan kemanusiaan di atas materi, mengobati masyarakat tanpa biaya, serta aktif mendirikan Gedung Nasional Indonesia (GNI) di Surabaya.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Card 4 -->
+                <div class="glass-card p-8 rounded-2xl border border-gold-500/20 hover:border-gold-500 transition-all duration-300 hover:scale-[1.02] group">
+                    <div class="flex items-start space-x-5">
+                        <div class="p-4 rounded-xl bg-maroon-900 border border-gold-500/40 text-gold-400 group-hover:bg-gold-500 group-hover:text-maroon-950 transition-colors shrink-0">
+                            <i class="fa-solid fa-newspaper text-2xl"></i>
+                        </div>
+                        <div>
+                            <h3 class="font-serif text-xl font-bold text-cream mb-2 group-hover:text-gold-300 transition-colors">Dunia Jurnalistik</h3>
+                            <p class="text-sm text-gray-300 leading-relaxed">
+                                Aktif memimpin beberapa surat kabar (seperti *Soeara Oetomo* dan *Penyebar Semangat*) untuk menyuarakan aspirasi rakyat dan memprotes ketidakadilan rezim kolonial.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- SECTION 6: FOOTER -->
+    <footer class="bg-maroon-950 border-t border-gold-500/30 pt-16 pb-12 px-4 relative overflow-hidden">
+        <div class="max-w-5xl mx-auto text-center relative z-10">
+            <!-- Quote Box -->
+            <div class="mb-10 p-8 rounded-2xl glass-panel border border-gold-500/30 max-w-3xl mx-auto">
+                <i class="fa-solid fa-quote-left text-3xl text-gold-500/40 mb-3 block"></i>
+                <blockquote class="font-serif text-2xl sm:text-3xl italic text-gold-gradient font-semibold mb-4">
+                    "Hari depan kita terletak pada masa kini."
+                </blockquote>
+                <p class="text-xs uppercase tracking-widest text-gray-400 font-medium">— Dr. Soetomo</p>
+            </div>
+
+            <!-- Decorative Line -->
+            <div class="w-16 h-0.5 bg-gold-500/40 mx-auto mb-8"></div>
+
+            <!-- Copyright Notice -->
+            <p class="text-xs text-gray-400 tracking-wider">
+                © 2026 Monumen Digital Dr. Soetomo - Dibangun untuk Mengenang Pahlawan Bangsa.
+            </p>
+        </div>
+    </footer>
+
+    <!-- JAVASCRIPT FOR INTERACTIVITY -->
+    <script>
+        // Mobile Menu Toggle Logic
+        const mobileMenuBtn = document.getElementById('mobile-menu-btn');
+        const mobileMenu = document.getElementById('mobile-menu');
+        const mobileLinks = document.querySelectorAll('.mobile-link');
+
+        mobileMenuBtn.addEventListener('click', () => {
+            mobileMenu.classList.toggle('hidden');
+        });
+
+        mobileLinks.forEach(link => {
+            link.addEventListener('click', () => {
+                mobileMenu.classList.add('hidden');
+            });
+        });
+
+        // Intersection Observer for Scroll Animations (Fade-In Effect)
+        const observerOptions = {
+            root: null,
+            rootMargin: '0px',
+            threshold: 0.15
+        };
+
+        const observer = new IntersectionObserver((entries, observer) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.fade-in-element').forEach(element => {
+            observer.observe(element);
+        });
+
+        // Dynamic Navbar Background Change on Scroll
+        const navbar = document.getElementById('navbar');
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 50) {
+                navbar.classList.add('shadow-xl', 'bg-maroon-950/90');
+            } else {
+                navbar.classList.remove('shadow-xl', 'bg-maroon-950/90');
+            }
+        });
+    </script>
+</body>
+</html>
